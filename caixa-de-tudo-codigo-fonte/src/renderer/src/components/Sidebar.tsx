@@ -12,7 +12,7 @@ import {
   ClipboardList
 } from 'lucide-react'
 
-export type PageId = 'dashboard' | 'auto-clicker' | 'agenda' | 'notes' | 'settings'
+export type PageId = 'dashboard' | 'auto-clicker' | 'agenda' | 'notes' | 'converter' | 'settings'
 
 interface NavItem {
   id: PageId
@@ -30,13 +30,13 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'auto-clicker', label: 'Auto Clicker', icon: <MousePointerClick size={17} /> },
   { id: 'agenda', label: 'Agenda', icon: <CalendarCheck size={17} /> },
   { id: 'notes', label: 'Post-its', icon: <StickyNote size={17} /> },
+  { id: 'converter', label: 'Conversor', icon: <FileStack size={17} /> },
   { id: 'settings', label: 'Configurações', icon: <SettingsIcon size={17} /> }
 ]
 
 // Ferramentas planejadas - apenas navegação/arquitetura preparada, sem implementação ainda
 const FUTURE_TOOLS: FutureToolItem[] = [
   { label: 'Gerador de texto', icon: <Type size={16} /> },
-  { label: 'Conversor de arquivos', icon: <FileStack size={16} /> },
   { label: 'Ferramentas de imagem', icon: <ImageIcon size={16} /> },
   { label: 'Gravador de macros', icon: <Video size={16} /> },
   { label: 'Temporizador', icon: <Timer size={16} /> },
@@ -59,7 +59,7 @@ export function Sidebar({ active, onNavigate }: SidebarProps): JSX.Element {
           className={
             'flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition ' +
             (active === item.id
-              ? 'bg-accent-cyan/10 text-accent-cyan glow-border'
+              ? 'bg-accent-violet/10 text-accent-violet glow-border'
               : 'text-gray-400 hover:bg-white/5 hover:text-gray-200')
           }
         >

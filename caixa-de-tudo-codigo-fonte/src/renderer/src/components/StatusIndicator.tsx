@@ -9,10 +9,10 @@ export function StatusIndicator({ active, label }: StatusIndicatorProps): JSX.El
       <span
         className={
           'h-2.5 w-2.5 rounded-full ' +
-          (active ? 'bg-accent-cyan pulse-active' : 'bg-gray-500')
+          (active ? 'bg-accent-violet pulse-active' : 'bg-gray-500')
         }
       />
-      <span className={'text-xs font-medium ' + (active ? 'text-accent-cyan' : 'text-gray-400')}>
+      <span className={'text-xs font-medium ' + (active ? 'text-accent-violet' : 'text-gray-400')}>
         {label ?? (active ? 'Ativo' : 'Inativo')}
       </span>
     </div>

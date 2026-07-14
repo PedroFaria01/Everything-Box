@@ -97,7 +97,7 @@ export function AutoClickerCard(): JSX.Element {
       <div className="mb-4 grid grid-cols-2 gap-3 rounded-xl bg-white/[0.03] p-3 text-center">
         <div>
           <p className="text-[10px] uppercase tracking-wide text-gray-500">Cliques</p>
-          <p className="font-mono text-lg text-accent-cyan">{status.clicksExecuted}</p>
+          <p className="font-mono text-lg text-accent-violet">{status.clicksExecuted}</p>
         </div>
         <div>
           <p className="text-[10px] uppercase tracking-wide text-gray-500">Tempo</p>

@@ -1,8 +1,10 @@
-import { ipcMain, BrowserWindow } from 'electron'
+import { ipcMain, BrowserWindow, dialog, shell } from 'electron'
+import { basename, dirname, extname, join } from 'path'
 import type {
   AgendaTask,
   AutoClickerConfig,
   AppSettings,
+  ConversionFormat,
   NoteDraft,
   StickyNote,
   TaskDraft
@@ -25,6 +27,7 @@ import {
   updateNote,
   deleteNote
 } from '../notes'
+import { convertFile, detectFormat, getAvailableTargets, UnsupportedConversionError } from '../converter'
 
 function toErrorPayload(error: unknown): { code: string; message: string } {
   const message = error instanceof Error ? error.message : 'Erro desconhecido.'
@@ -176,6 +179,66 @@ export function registerIpcHandlers(mainWindow: BrowserWindow, toggleFromShortcu
     } catch (error) {
       return { ok: false, error: toErrorPayload(error) }
     }
+  })
+
+  ipcMain.handle('converter:pick-file', async () => {
+    const result = await dialog.showOpenDialog(mainWindow, {
+      title: 'Selecionar arquivo para converter',
+      properties: ['openFile'],
+      filters: [
+        { name: 'Arquivos suportados', extensions: ['txt', 'docx', 'pdf'] },
+        { name: 'Texto', extensions: ['txt'] },
+        { name: 'Word', extensions: ['docx'] },
+        { name: 'PDF', extensions: ['pdf'] }
+      ]
+    })
+    if (result.canceled || result.filePaths.length === 0) {
+      return { ok: false, canceled: true }
+    }
+    const filePath = result.filePaths[0]
+    const format = detectFormat(filePath)
+    if (!format) {
+      return {
+        ok: false,
+        error: toErrorPayload(new UnsupportedConversionError('Formato de arquivo não suportado.'))
+      }
+    }
+    return {
+      ok: true,
+      path: filePath,
+      name: basename(filePath),
+      format,
+      targets: getAvailableTargets(format)
+    }
+  })
+
+  ipcMain.handle(
+    'converter:convert',
+    async (_event, inputPath: string, targetFormat: ConversionFormat) => {
+      try {
+        const sourceFormat = detectFormat(inputPath)
+        if (!sourceFormat) {
+          throw new UnsupportedConversionError('Formato de origem não suportado.')
+        }
+        const defaultName = `${basename(inputPath, extname(inputPath))}.${targetFormat}`
+        const saveResult = await dialog.showSaveDialog(mainWindow, {
+          title: 'Salvar arquivo convertido',
+          defaultPath: join(dirname(inputPath), defaultName),
+          filters: [{ name: targetFormat.toUpperCase(), extensions: [targetFormat] }]
+        })
+        if (saveResult.canceled || !saveResult.filePath) {
+          return { ok: false, canceled: true }
+        }
+        await convertFile(inputPath, saveResult.filePath, sourceFormat, targetFormat)
+        return { ok: true, outputPath: saveResult.filePath }
+      } catch (error) {
+        return { ok: false, error: toErrorPayload(error) }
+      }
+    }
+  )
+
+  ipcMain.handle('converter:open-in-folder', (_event, filePath: string) => {
+    shell.showItemInFolder(filePath)
   })
 
   ipcMain.handle('window:minimize', () => {

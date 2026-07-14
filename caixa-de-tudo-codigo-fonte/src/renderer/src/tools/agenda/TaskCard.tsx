@@ -120,7 +120,7 @@ export function TaskCard({ task, onToggleDone, onDelete, onSave }: TaskCardProps
             {task.title}
           </p>
           {task.time && (
-            <span className="rounded-md bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-accent-cyan">
+            <span className="rounded-md bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-accent-violet">
               {task.time}
             </span>
           )}

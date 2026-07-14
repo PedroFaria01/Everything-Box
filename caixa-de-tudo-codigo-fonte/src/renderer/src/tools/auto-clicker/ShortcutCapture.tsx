@@ -98,7 +98,7 @@ export function ShortcutCapture(): JSX.Element {
   if (!capturing) {
     return (
       <div className="flex items-center gap-2">
-        <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-accent-cyan">
+        <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-accent-violet">
           {currentShortcut}
         </span>
         <Button

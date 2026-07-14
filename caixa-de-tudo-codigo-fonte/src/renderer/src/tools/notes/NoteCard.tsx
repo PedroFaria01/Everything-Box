@@ -71,7 +71,9 @@ export function NoteCard({ note, onChangePriority, onSave, onDelete }: NoteCardP
         </div>
       </div>
 
-      {note.description && <p className="text-xs text-gray-300">{note.description}</p>}
+      {note.description && (
+        <p className="whitespace-pre-wrap text-xs text-gray-300">{note.description}</p>
+      )}
 
       <div className="mt-1 flex items-center justify-between">
         <PrioritySelector value={note.priority} onChange={(priority) => onChangePriority(note.id, priority)} />

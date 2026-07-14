@@ -99,9 +99,9 @@ export function MiniCalendar({ tasks, selectedDate, onSelectDate }: MiniCalendar
               className={
                 'relative mx-auto flex h-7 w-7 items-center justify-center rounded-lg text-[11px] transition ' +
                 (isSelected
-                  ? 'bg-accent-cyan/20 text-accent-cyan'
+                  ? 'bg-accent-violet/20 text-accent-violet'
                   : isToday
-                    ? 'border border-accent-cyan/40 text-gray-200'
+                    ? 'border border-accent-violet/40 text-gray-200'
                     : 'text-gray-400 hover:bg-white/5')
               }
             >
@@ -120,7 +120,7 @@ export function MiniCalendar({ tasks, selectedDate, onSelectDate }: MiniCalendar
         <button
           type="button"
           onClick={() => onSelectDate(null)}
-          className="mt-2 text-[11px] text-accent-cyan underline underline-offset-2"
+          className="mt-2 text-[11px] text-accent-violet underline underline-offset-2"
         >
           Ver todos os dias
         </button>

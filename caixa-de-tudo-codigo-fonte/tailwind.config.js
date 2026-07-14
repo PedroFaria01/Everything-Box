@@ -18,13 +18,13 @@ module.exports = {
           700: '#181c2a'
         },
         accent: {
-          cyan: '#22d3ee',
+          violet: '#c084fc',
           purple: '#a855f7',
           blue: '#3b82f6'
         }
       },
       boxShadow: {
-        glow: '0 0 20px rgba(56, 189, 248, 0.35)'
+        glow: '0 0 20px rgba(192, 132, 252, 0.35)'
       },
       fontFamily: {
         sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif']

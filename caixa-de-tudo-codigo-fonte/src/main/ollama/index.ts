@@ -56,7 +56,9 @@ export async function callOllamaJSON<T>({
           { role: 'user', content: userText }
         ],
         format: schema,
-        stream: false
+        stream: false,
+        // Temperatura baixa: queremos que o modelo seja fiel ao texto original em vez de "criativo"
+        options: { temperature: 0.2 }
       })
     })
   } catch (error) {

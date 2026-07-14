@@ -4,6 +4,7 @@ import type {
   AutoClickerStatus,
   AppSettings,
   AgendaTask,
+  ConversionFormat,
   ParsedTaskInput,
   TaskDraft,
   NoteDraft,
@@ -16,6 +17,22 @@ type IpcResult<T = undefined> =
   | { ok: false; error: { code: string; message: string } }
 
 type IpcErrorResult = { ok: false; error: { code: string; message: string } }
+
+type PickConversionFileResult =
+  | {
+      ok: true
+      path: string
+      name: string
+      format: ConversionFormat
+      targets: ConversionFormat[]
+    }
+  | { ok: false; canceled: true }
+  | IpcErrorResult
+
+type ConvertFileResult =
+  | { ok: true; outputPath: string }
+  | { ok: false; canceled: true }
+  | IpcErrorResult
 
 const desktopAPI = {
   startAutoClicker: (config: AutoClickerConfig): Promise<IpcResult> =>
@@ -100,6 +117,14 @@ const desktopAPI = {
 
   deleteNote: (id: string): Promise<{ ok: true } | IpcErrorResult> =>
     ipcRenderer.invoke('notes:delete-note', id),
+
+  pickConversionFile: (): Promise<PickConversionFileResult> =>
+    ipcRenderer.invoke('converter:pick-file'),
+
+  convertFile: (inputPath: string, targetFormat: ConversionFormat): Promise<ConvertFileResult> =>
+    ipcRenderer.invoke('converter:convert', inputPath, targetFormat),
+
+  openInFolder: (filePath: string): Promise<void> => ipcRenderer.invoke('converter:open-in-folder', filePath),
 
   minimizeWindow: (): Promise<void> => ipcRenderer.invoke('window:minimize'),
 

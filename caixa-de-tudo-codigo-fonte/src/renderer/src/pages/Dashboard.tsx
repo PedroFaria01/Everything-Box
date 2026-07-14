@@ -1,4 +1,4 @@
-import { MousePointerClick, CalendarCheck, StickyNote } from 'lucide-react'
+import { MousePointerClick, CalendarCheck, StickyNote, FileStack } from 'lucide-react'
 import { StatusIndicator } from '../components/StatusIndicator'
 import { useAppStore } from '../store/appStore'
 import type { PageId } from '../components/Sidebar'
@@ -26,7 +26,7 @@ export function Dashboard({ onNavigate }: DashboardProps): JSX.Element {
         className="glass-card glow-border flex items-center justify-between rounded-2xl p-4 text-left transition hover:bg-white/[0.04]"
       >
         <div className="flex items-center gap-3">
-          <div className="rounded-lg bg-accent-cyan/10 p-2 text-accent-cyan">
+          <div className="rounded-lg bg-accent-violet/10 p-2 text-accent-violet">
             <MousePointerClick size={18} />
           </div>
           <div>
@@ -42,7 +42,7 @@ export function Dashboard({ onNavigate }: DashboardProps): JSX.Element {
         onClick={() => onNavigate('agenda')}
         className="glass-card glow-border flex items-center gap-3 rounded-2xl p-4 text-left transition hover:bg-white/[0.04]"
       >
-        <div className="rounded-lg bg-accent-cyan/10 p-2 text-accent-cyan">
+        <div className="rounded-lg bg-accent-violet/10 p-2 text-accent-violet">
           <CalendarCheck size={18} />
         </div>
         <div>
@@ -56,12 +56,26 @@ export function Dashboard({ onNavigate }: DashboardProps): JSX.Element {
         onClick={() => onNavigate('notes')}
         className="glass-card glow-border flex items-center gap-3 rounded-2xl p-4 text-left transition hover:bg-white/[0.04]"
       >
-        <div className="rounded-lg bg-accent-cyan/10 p-2 text-accent-cyan">
+        <div className="rounded-lg bg-accent-violet/10 p-2 text-accent-violet">
           <StickyNote size={18} />
         </div>
         <div>
           <p className="text-sm font-medium text-gray-100">Post-its</p>
           <p className="text-[11px] text-gray-500">Anote qualquer coisa e organize por prioridade</p>
+        </div>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onNavigate('converter')}
+        className="glass-card glow-border flex items-center gap-3 rounded-2xl p-4 text-left transition hover:bg-white/[0.04]"
+      >
+        <div className="rounded-lg bg-accent-violet/10 p-2 text-accent-violet">
+          <FileStack size={18} />
+        </div>
+        <div>
+          <p className="text-sm font-medium text-gray-100">Conversor de arquivos</p>
+          <p className="text-[11px] text-gray-500">Converta entre TXT, DOCX e PDF</p>
         </div>
       </button>
     </div>

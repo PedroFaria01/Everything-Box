@@ -29,12 +29,13 @@ export function NotesPage(): JSX.Element {
       <div className="glass-card rounded-2xl p-4">
         <h2 className="mb-1 text-sm font-semibold text-gray-100">Post-its</h2>
         <p className="mb-3 text-xs text-gray-500">
-          Escreva sua anotação do jeito que vier — a IA organiza um título e melhora o texto. Depois é só
-          escolher a cor pela prioridade.
+          Escreva sua anotação do jeito que vier — a IA organiza um título e melhora o texto, sem inventar
+          nada. Use <span className="text-gray-400">#</span> pra dar uma instrução à IA sobre como formatar
+          (ex: "...#transforma em lista"). Depois é só escolher a cor pela prioridade.
         </p>
 
         <Textarea
-          placeholder='Ex: "lembrar de ligar pro fornecedor sobre o atraso da entrega"'
+          placeholder='Ex: "lembrar de ligar pro fornecedor sobre o atraso da entrega #resuma em uma frase"'
           size="sm"
           minRows={2}
           value={inputText}

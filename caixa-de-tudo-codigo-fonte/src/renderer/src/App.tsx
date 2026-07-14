@@ -16,6 +16,7 @@ import { Settings } from './pages/Settings'
 import { AutoClickerPage } from './tools/auto-clicker/AutoClickerPage'
 import { AgendaPage } from './tools/agenda/AgendaPage'
 import { NotesPage } from './tools/notes/NotesPage'
+import { ConverterPage } from './tools/converter/ConverterPage'
 import { desktopApi } from './services/desktopApi'
 import { useAppStore } from './store/appStore'
 
@@ -85,6 +86,7 @@ function App(): JSX.Element {
       {page === 'auto-clicker' && <AutoClickerPage />}
       {page === 'agenda' && <AgendaPage />}
       {page === 'notes' && <NotesPage />}
+      {page === 'converter' && <ConverterPage />}
       {page === 'settings' && <Settings />}
 
       <Modal isOpen={askCloseOpen} onOpenChange={setAskCloseOpen} isDismissable={false} size="sm">

@@ -85,7 +85,7 @@ export const DEFAULT_AUTO_CLICKER_CONFIG: AutoClickerConfig = {
 }
 
 export const DEFAULT_OLLAMA_BASE_URL = 'http://localhost:11434'
-export const DEFAULT_OLLAMA_MODEL = 'llama3.2:1b'
+export const DEFAULT_OLLAMA_MODEL = 'qwen2.5:3b'
 
 export const DEFAULT_SETTINGS: AppSettings = {
   autoClicker: DEFAULT_AUTO_CLICKER_CONFIG,
@@ -166,6 +166,16 @@ export type ParsedNoteInput = Pick<StickyNote, 'title' | 'description'>
 
 /** Payload usado para criar um post-it (título/descrição da IA + prioridade escolhida pelo usuário). */
 export type NoteDraft = Pick<StickyNote, 'title' | 'description' | 'priority'>
+
+// --- Conversor de arquivos ---
+
+export type ConversionFormat = 'txt' | 'docx' | 'pdf'
+
+export const CONVERSION_FORMAT_LABELS: Record<ConversionFormat, string> = {
+  txt: 'Texto (.txt)',
+  docx: 'Word (.docx)',
+  pdf: 'PDF (.pdf)'
+}
 
 // Limites de segurança para evitar uso excessivo de CPU / cliques inválidos
 export const MIN_INTERVAL_MS = 20 // 50 cliques/segundo no máximo

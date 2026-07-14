@@ -13,7 +13,7 @@ interface TaskDraftCardProps {
 export function TaskDraftCard({ draft, onChange, onConfirm, onCancel }: TaskDraftCardProps): JSX.Element {
   return (
     <div className="glass-card glow-border rounded-2xl p-4">
-      <p className="mb-3 text-xs font-medium uppercase tracking-wide text-accent-cyan">
+      <p className="mb-3 text-xs font-medium uppercase tracking-wide text-accent-violet">
         A IA entendeu isso — revise antes de salvar
       </p>
 
