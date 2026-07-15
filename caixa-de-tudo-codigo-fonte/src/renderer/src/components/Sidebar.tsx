@@ -4,15 +4,24 @@ import {
   Settings as SettingsIcon,
   CalendarCheck,
   StickyNote,
-  Type,
+  Sparkles,
   FileStack,
+  FileText,
   Image as ImageIcon,
   Video,
   Timer,
   ClipboardList
 } from 'lucide-react'
 
-export type PageId = 'dashboard' | 'auto-clicker' | 'agenda' | 'notes' | 'converter' | 'settings'
+export type PageId =
+  | 'dashboard'
+  | 'auto-clicker'
+  | 'agenda'
+  | 'notes'
+  | 'converter'
+  | 'text-to-file'
+  | 'text-generator'
+  | 'settings'
 
 interface NavItem {
   id: PageId
@@ -31,12 +40,13 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'agenda', label: 'Agenda', icon: <CalendarCheck size={17} /> },
   { id: 'notes', label: 'Post-its', icon: <StickyNote size={17} /> },
   { id: 'converter', label: 'Conversor', icon: <FileStack size={17} /> },
+  { id: 'text-to-file', label: 'Texto p/ arquivo', icon: <FileText size={17} /> },
+  { id: 'text-generator', label: 'Gerador de texto', icon: <Sparkles size={17} /> },
   { id: 'settings', label: 'Configurações', icon: <SettingsIcon size={17} /> }
 ]
 
 // Ferramentas planejadas - apenas navegação/arquitetura preparada, sem implementação ainda
 const FUTURE_TOOLS: FutureToolItem[] = [
-  { label: 'Gerador de texto', icon: <Type size={16} /> },
   { label: 'Ferramentas de imagem', icon: <ImageIcon size={16} /> },
   { label: 'Gravador de macros', icon: <Video size={16} /> },
   { label: 'Temporizador', icon: <Timer size={16} /> },

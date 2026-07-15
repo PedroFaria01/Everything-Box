@@ -27,6 +27,8 @@ interface CallOllamaJSONParams {
   userText: string
   /** JSON Schema usado no parâmetro `format` do Ollama para forçar a estrutura da resposta. */
   schema: Record<string, unknown>
+  /** Padrão 0.2 (respostas fiéis/previsíveis). Use um valor maior para tarefas mais criativas. */
+  temperature?: number
 }
 
 /**
@@ -38,7 +40,8 @@ export async function callOllamaJSON<T>({
   model,
   systemPrompt,
   userText,
-  schema
+  schema,
+  temperature = 0.2
 }: CallOllamaJSONParams): Promise<T> {
   if (!model || !model.trim()) {
     throw new OllamaUnavailableError('Informe o nome do modelo do Ollama em Configurações.')
@@ -57,8 +60,7 @@ export async function callOllamaJSON<T>({
         ],
         format: schema,
         stream: false,
-        // Temperatura baixa: queremos que o modelo seja fiel ao texto original em vez de "criativo"
-        options: { temperature: 0.2 }
+        options: { temperature }
       })
     })
   } catch (error) {

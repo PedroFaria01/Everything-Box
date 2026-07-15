@@ -171,6 +171,8 @@ export type NoteDraft = Pick<StickyNote, 'title' | 'description' | 'priority'>
 
 export type ConversionFormat = 'txt' | 'docx' | 'pdf'
 
+export const CONVERSION_FORMATS: ConversionFormat[] = ['txt', 'docx', 'pdf']
+
 export const CONVERSION_FORMAT_LABELS: Record<ConversionFormat, string> = {
   txt: 'Texto (.txt)',
   docx: 'Word (.docx)',

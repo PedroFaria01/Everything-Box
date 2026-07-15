@@ -17,6 +17,8 @@ import { AutoClickerPage } from './tools/auto-clicker/AutoClickerPage'
 import { AgendaPage } from './tools/agenda/AgendaPage'
 import { NotesPage } from './tools/notes/NotesPage'
 import { ConverterPage } from './tools/converter/ConverterPage'
+import { TextToFilePage } from './tools/text-to-file/TextToFilePage'
+import { TextGeneratorPage } from './tools/text-generator/TextGeneratorPage'
 import { desktopApi } from './services/desktopApi'
 import { useAppStore } from './store/appStore'
 
@@ -87,6 +89,8 @@ function App(): JSX.Element {
       {page === 'agenda' && <AgendaPage />}
       {page === 'notes' && <NotesPage />}
       {page === 'converter' && <ConverterPage />}
+      {page === 'text-to-file' && <TextToFilePage />}
+      {page === 'text-generator' && <TextGeneratorPage />}
       {page === 'settings' && <Settings />}
 
       <Modal isOpen={askCloseOpen} onOpenChange={setAskCloseOpen} isDismissable={false} size="sm">

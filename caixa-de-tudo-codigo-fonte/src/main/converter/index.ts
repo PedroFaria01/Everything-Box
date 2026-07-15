@@ -139,3 +139,34 @@ export async function convertFile(
     )
   }
 }
+
+/**
+ * Salva um texto digitado diretamente pelo usuário como um arquivo TXT, DOCX ou PDF,
+ * reaproveitando os mesmos conversores usados para arquivos.
+ */
+export async function exportTextToFile(
+  text: string,
+  outputPath: string,
+  format: ConversionFormat
+): Promise<void> {
+  try {
+    if (format === 'txt') {
+      await writeFile(outputPath, text, 'utf-8')
+      return
+    }
+    if (format === 'docx') {
+      const buffer = await textToDocxBuffer(text)
+      await writeFile(outputPath, buffer)
+      return
+    }
+    if (format === 'pdf') {
+      const buffer = await htmlToPdfBuffer(wrapPlainTextAsHtml(text))
+      await writeFile(outputPath, buffer)
+      return
+    }
+  } catch (error) {
+    throw new ConversionFailedError(
+      error instanceof Error ? error.message : 'Falha desconhecida ao salvar o arquivo.'
+    )
+  }
+}

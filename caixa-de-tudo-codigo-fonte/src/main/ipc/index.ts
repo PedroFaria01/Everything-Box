@@ -27,7 +27,14 @@ import {
   updateNote,
   deleteNote
 } from '../notes'
-import { convertFile, detectFormat, getAvailableTargets, UnsupportedConversionError } from '../converter'
+import {
+  convertFile,
+  detectFormat,
+  getAvailableTargets,
+  exportTextToFile,
+  UnsupportedConversionError
+} from '../converter'
+import { generateTextWithAI } from '../text-generator'
 
 function toErrorPayload(error: unknown): { code: string; message: string } {
   const message = error instanceof Error ? error.message : 'Erro desconhecido.'
@@ -239,6 +246,33 @@ export function registerIpcHandlers(mainWindow: BrowserWindow, toggleFromShortcu
 
   ipcMain.handle('converter:open-in-folder', (_event, filePath: string) => {
     shell.showItemInFolder(filePath)
+  })
+
+  ipcMain.handle('text-generator:generate', async (_event, prompt: string) => {
+    try {
+      const settings = loadSettings()
+      const text = await generateTextWithAI(prompt, settings.ollamaBaseUrl, settings.ollamaModel)
+      return { ok: true, text }
+    } catch (error) {
+      return { ok: false, error: toErrorPayload(error) }
+    }
+  })
+
+  ipcMain.handle('converter:export-text', async (_event, text: string, format: ConversionFormat) => {
+    try {
+      const saveResult = await dialog.showSaveDialog(mainWindow, {
+        title: 'Salvar texto como arquivo',
+        defaultPath: `documento.${format}`,
+        filters: [{ name: format.toUpperCase(), extensions: [format] }]
+      })
+      if (saveResult.canceled || !saveResult.filePath) {
+        return { ok: false, canceled: true }
+      }
+      await exportTextToFile(text, saveResult.filePath, format)
+      return { ok: true, outputPath: saveResult.filePath }
+    } catch (error) {
+      return { ok: false, error: toErrorPayload(error) }
+    }
   })
 
   ipcMain.handle('window:minimize', () => {

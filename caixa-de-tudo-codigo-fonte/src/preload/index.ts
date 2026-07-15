@@ -124,6 +124,12 @@ const desktopAPI = {
   convertFile: (inputPath: string, targetFormat: ConversionFormat): Promise<ConvertFileResult> =>
     ipcRenderer.invoke('converter:convert', inputPath, targetFormat),
 
+  exportTextToFile: (text: string, format: ConversionFormat): Promise<ConvertFileResult> =>
+    ipcRenderer.invoke('converter:export-text', text, format),
+
+  generateText: (prompt: string): Promise<{ ok: true; text: string } | IpcErrorResult> =>
+    ipcRenderer.invoke('text-generator:generate', prompt),
+
   openInFolder: (filePath: string): Promise<void> => ipcRenderer.invoke('converter:open-in-folder', filePath),
 
   minimizeWindow: (): Promise<void> => ipcRenderer.invoke('window:minimize'),

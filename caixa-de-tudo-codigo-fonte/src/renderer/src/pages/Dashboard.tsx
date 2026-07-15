@@ -1,4 +1,4 @@
-import { MousePointerClick, CalendarCheck, StickyNote, FileStack } from 'lucide-react'
+import { MousePointerClick, CalendarCheck, StickyNote, FileStack, FileText, Sparkles } from 'lucide-react'
 import { StatusIndicator } from '../components/StatusIndicator'
 import { useAppStore } from '../store/appStore'
 import type { PageId } from '../components/Sidebar'
@@ -76,6 +76,34 @@ export function Dashboard({ onNavigate }: DashboardProps): JSX.Element {
         <div>
           <p className="text-sm font-medium text-gray-100">Conversor de arquivos</p>
           <p className="text-[11px] text-gray-500">Converta entre TXT, DOCX e PDF</p>
+        </div>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onNavigate('text-to-file')}
+        className="glass-card glow-border flex items-center gap-3 rounded-2xl p-4 text-left transition hover:bg-white/[0.04]"
+      >
+        <div className="rounded-lg bg-accent-violet/10 p-2 text-accent-violet">
+          <FileText size={18} />
+        </div>
+        <div>
+          <p className="text-sm font-medium text-gray-100">Texto para arquivo</p>
+          <p className="text-[11px] text-gray-500">Escreva um texto e salve como TXT, DOCX ou PDF</p>
+        </div>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onNavigate('text-generator')}
+        className="glass-card glow-border flex items-center gap-3 rounded-2xl p-4 text-left transition hover:bg-white/[0.04]"
+      >
+        <div className="rounded-lg bg-accent-violet/10 p-2 text-accent-violet">
+          <Sparkles size={18} />
+        </div>
+        <div>
+          <p className="text-sm font-medium text-gray-100">Gerador de texto</p>
+          <p className="text-[11px] text-gray-500">Descreva o que você quer e a IA escreve pra você</p>
         </div>
       </button>
     </div>

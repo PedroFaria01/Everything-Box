@@ -8,6 +8,7 @@ import {
   unregisterAllShortcuts
 } from './shortcuts'
 import { shutdownAutoClicker, getStatus, stopAutoClicker } from './auto-clicker'
+import { startReminderScheduler, stopReminderScheduler } from './reminders'
 
 const isDev = !app.isPackaged
 
@@ -90,6 +91,7 @@ app.whenReady().then(() => {
 
   registerIpcHandlers(mainWindow, toggleAutoClickerFromShortcut)
   createTray(mainWindow)
+  startReminderScheduler()
 
   // Respostas para a decisão do usuário no diálogo "fechar ou minimizar"
   ipcMain.handle('window:resolve-close-behavior', (_event, choice: 'minimize' | 'close', remember: boolean) => {
@@ -119,6 +121,7 @@ app.on('before-quit', () => {
   shutdownAutoClicker()
   unregisterAllShortcuts()
   destroyTray()
+  stopReminderScheduler()
 })
 
 app.on('window-all-closed', () => {
